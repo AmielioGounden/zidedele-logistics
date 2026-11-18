@@ -31,12 +31,12 @@ RewriteCond %{THE_REQUEST} \s/+index\.html[?\s] [NC]
 RewriteRule ^index\.html$ https://www.zidedele.co.za/ [R=301,L]
 
 # Direct .html requests -> clean URLs
-RewriteCond %{THE_REQUEST} \s/+(about|supply-chain|fleet-facilities|contact|website-disclaimer)\.html[?\s] [NC]
+RewriteCond %{THE_REQUEST} \s/+(about|supply-chain|fleet-facilities|contact|website-disclaimer|privacy-policy)\.html[?\s] [NC]
 RewriteRule ^ https://www.zidedele.co.za/%1 [R=301,L]
 
 # Trailing slash on page URLs -> no trailing slash
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(about|supply-chain|fleet-facilities|contact|website-disclaimer)/$ https://www.zidedele.co.za/$1 [R=301,L]
+RewriteRule ^(about|supply-chain|fleet-facilities|contact|website-disclaimer|privacy-policy)/$ https://www.zidedele.co.za/$1 [R=301,L]
 
 # Serve the matching .html file for clean URLs
 RewriteCond %{REQUEST_FILENAME} !-f

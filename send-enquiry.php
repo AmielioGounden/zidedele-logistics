@@ -78,6 +78,7 @@ $date = $clean($data['date'] ?? '', 20);
 $origin = $clean($data['origin'] ?? '', 200);
 $destination = $clean($data['destination'] ?? '', 200);
 $requirements = $clean($data['requirements'] ?? '', 3000);
+$privacyConsent = $clean($data['privacy_consent'] ?? '', 10);
 
 $allowedServices = ['Road transport', 'Warehousing', 'Materials handling', 'Cargo handling', 'Machinery', 'Other'];
 $errors = [];
@@ -87,6 +88,7 @@ if ($phone === '') $errors[] = 'Phone';
 if (!in_array($service, $allowedServices, true)) $errors[] = 'Service required';
 if ($origin === '') $errors[] = 'Collection / origin';
 if ($destination === '') $errors[] = 'Delivery / destination';
+if ($privacyConsent !== 'yes') $errors[] = 'Privacy consent';
 
 $today = new DateTimeImmutable('today');
 $selectedDate = DateTimeImmutable::createFromFormat('Y-m-d', $date);
@@ -147,6 +149,7 @@ $html = '<!doctype html><html><body style="font-family:Arial,sans-serif;color:#1
     . '<tr><th align="left">Collection / origin</th><td>' . $e($origin) . '</td></tr>'
     . '<tr><th align="left">Delivery / destination</th><td>' . $e($destination) . '</td></tr>'
     . '<tr><th align="left">Cargo / requirements</th><td>' . nl2br($e($requirements)) . '</td></tr>'
+    . '<tr><th align="left">Privacy consent</th><td>Yes</td></tr>'
     . '</table></body></html>';
 
 $plain = "New Zidedele website enquiry\n\n"
@@ -154,7 +157,8 @@ $plain = "New Zidedele website enquiry\n\n"
     . ($company !== '' ? "Company: {$company}\n" : '')
     . "Email: {$email}\nPhone: {$phone}\nService: {$service}\nPreferred date: {$date}\n"
     . "Collection / origin: {$origin}\nDelivery / destination: {$destination}\n"
-    . "Cargo / requirements: {$requirements}\n";
+    . "Cargo / requirements: {$requirements}\n"
+    . "Privacy consent: Yes\n";
 
 // Count this enquiry towards the rate limit only once it passes validation.
 $hits[] = $now;

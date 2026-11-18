@@ -23,10 +23,11 @@ if(quoteForm){
   const requiredFields=[
     ['name','Full name'],['email','Email'],['phone','Phone'],['service','Service required'],
     ['date','Preferred date'],['origin','Collection / origin'],['destination','Delivery / destination'],
-    ['requirements','Cargo / requirements']
+    ['requirements','Cargo / requirements'],['privacy_consent','Privacy consent']
   ];
 
   const fieldValid=(el)=>{
+    if(el.type==='checkbox')return el.checked;
     const value=(el.value||'').trim();
     if(!value)return false;
     if(el.type==='email')return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -109,6 +110,7 @@ if(quoteForm){
       origin:(fd.get('origin')||'').toString(),
       destination:(fd.get('destination')||'').toString(),
       requirements:(fd.get('requirements')||'').toString(),
+      privacy_consent:fd.get('privacy_consent')==='on' ? 'yes' : '',
       _honey:(fd.get('_honey')||'').toString(),
       _t:Date.now()-formLoadedAt
     };
